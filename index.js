@@ -22,30 +22,27 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run() {
   try {
     await client.connect();
-    const productCollection = client.db('emaJhon').collection('product')
-
-    app.get('/product', async (req, res) => {
+    const productsCollection = client.db('emaJhon').collection('product');
+    //get all products
+    app.get('/products', async (req, res) => {
       const query = {};
-      const cursor = productCollection.find(query);
+      const cursor = productsCollection.find(query);
       const products = await cursor.toArray()
       res.send(products)
-    })
+    });
+
   }
   finally {
 
   }
 }
-run().catch(console.dir)
+run().catch(console.dir);
 
-
-
-
-
-
-
-app.get('/', (req, res) => {
-  res.send('jhon is running waiting for ema')
+app.get('/home', (req, res) => {
+  res.send('ema is running');
 })
 app.listen(port, () => {
   console.log('success', port);
 })
+
+
